@@ -1,5 +1,6 @@
 import { Switch, Route } from 'react-router-dom';
 import './index.css';
+import EpisodeDetails from './pages/episodeDetails';
 import Homepage from './pages/homepage';
 import PodcastDetails from './pages/podcastDetails';
 
@@ -12,6 +13,9 @@ function App() {
 				</Route>
 				<Route exact path="/podcast/:id">
 					<PodcastDetails />
+				</Route>
+				<Route exact path="/podcast/:id/episode/:episodeId">
+					<EpisodeDetails />
 				</Route>
 			</Switch>
 		</div>

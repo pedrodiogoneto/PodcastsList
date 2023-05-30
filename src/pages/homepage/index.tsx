@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Navbar from '../../components/navbar';
+import PodcastCard from '../../components/podcastCard';
 import { getAllPodcasts } from '../../services/podcasts';
 
 const Homepage = () => {
@@ -55,19 +56,19 @@ const Homepage = () => {
 					className="border rounded-md px-4 py-3"
 				/>
 			</div>
-			<div className="mt-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+			<div className="mt-24 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-6 gap-y-24">
 				{podcasts &&
 					Object.values(podcasts)
 						?.filter(searchBy)
 						?.map((podcast: any) => {
 							return (
-								<div
-									key={podcast?.id}
-									onClick={() => history.push(`/podcast/${podcast?.id}`)}
-								>
-									<img src={podcast?.image} />
-									<h3>{podcast?.name}</h3>
-									<h4>{podcast?.author}</h4>
+								<div key={podcast?.id}>
+									<PodcastCard
+										onClick={() => history.push(`/podcast/${podcast?.id}`)}
+										title={podcast?.name}
+										image={podcast?.image}
+										author={podcast?.author}
+									/>
 								</div>
 							);
 						})}

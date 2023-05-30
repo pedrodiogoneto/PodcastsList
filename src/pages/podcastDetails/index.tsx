@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import format from 'date-fns/format';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import Navbar from '../../components/navbar';
 import { getAllPodcasts, getPodcastById } from '../../services/podcasts';
 
@@ -9,6 +9,8 @@ const PodcastDetails = () => {
 	const [podcastDetails, setPodcastDetails] = useState<any>();
 	const [podcastCachedInfo, setPodcastCachedInfo] = useState<any>();
 	const [rssInfo, setRssInfo] = useState<any>();
+
+	const history = useHistory();
 
 	const { id } = useParams<any>();
 
@@ -74,7 +76,15 @@ const PodcastDetails = () => {
 									{/* row 1 */}
 									{rssInfo?.map((episode: any) => {
 										return (
-											<tr key={episode?.guid}>
+											<tr
+												key={episode?.guid}
+												onClick={() => {
+													return history.push(
+														`/podcast/${id}/episode/${episode?.['acast:episodeId']}`,
+														episode
+													);
+												}}
+											>
 												<td>{episode?.title}</td>
 												<td>
 													{format(new Date(episode?.pubDate), 'dd/MM/yyyy')}
