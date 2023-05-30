@@ -1,37 +1,18 @@
 import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Navbar from '../../components/navbar';
 import { getAllPodcasts } from '../../services/podcasts';
 
 const Homepage = () => {
 	const [podcasts, setPodcasts] = useState<any>();
 	const [search, setSearch] = useState<string>();
-
-	const handleData = (data: any) => {
-		const dic: any = {};
-
-		data?.map((item: any) => {
-			dic[item?.id?.attributes?.['im:id']] = {
-				image: item?.['im:image']?.[item?.['im:image']?.length - 1]?.label,
-				name: item?.['im:name']?.label,
-				author: item?.['im:artist']?.label,
-				id: item?.id?.attributes?.['im:id'],
-				summary: item?.summary?.label,
-			};
-		});
-
-		return dic;
-	};
+	const history = useHistory();
 
 	const getPodcasts = async () => {
 		try {
-			const res = await getAllPodcasts();
+			const parsedData = await getAllPodcasts();
 
-			if (res?.status === 200) {
-				const parsedData = handleData(res?.data?.feed?.entry);
-
-				await localStorage.setItem('podcasts', JSON.stringify(parsedData));
-				setPodcasts(parsedData);
-			}
+			setPodcasts(parsedData);
 		} catch (error) {
 			console.log('ERR>>>', error);
 		}
@@ -80,7 +61,10 @@ const Homepage = () => {
 						?.filter(searchBy)
 						?.map((podcast: any) => {
 							return (
-								<div key={podcast.id} /*  onClick={() => history.push('/')} */>
+								<div
+									key={podcast?.id}
+									onClick={() => history.push(`/podcast/${podcast?.id}`)}
+								>
 									<img src={podcast?.image} />
 									<h3>{podcast?.name}</h3>
 									<h4>{podcast?.author}</h4>
