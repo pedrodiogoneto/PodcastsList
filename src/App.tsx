@@ -4,7 +4,7 @@ import Homepage from './pages/homepage';
 
 function App() {
 	return (
-		<div className="w-full h-full">
+		<div className="w-full h-full p-8">
 			<Switch>
 				<Route exact path="/">
 					<Homepage />
