@@ -73,17 +73,17 @@ const PodcastDetails = () => {
 									</tr>
 								</thead>
 								<tbody>
-									{/* row 1 */}
+									{/* rows */}
 									{rssInfo?.map((episode: any) => {
 										return (
 											<tr
 												key={episode?.guid}
-												onClick={() => {
-													return history.push(
-														`/podcast/${id}/episode/${episode?.['acast:episodeId']}`,
+												onClick={() =>
+													history.push(
+														`/podcast/${id}/episode/${episode?.guid}`,
 														episode
-													);
-												}}
+													)
+												}
 											>
 												<td>{episode?.title}</td>
 												<td>

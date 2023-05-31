@@ -8,10 +8,10 @@ const EpisodeDetails = () => {
 
 	const location = useLocation<any>();
 
-	const { id } = useParams<any>();
+	const { id, episodeId } = useParams<any>();
 
 	useEffect(() => {
-		if (location?.state?.['acast:episodeId']) {
+		if (episodeId) {
 			setEpisodeDetails(location?.state);
 			setPodcastCachedInfo(
 				JSON.parse(localStorage?.getItem('podcasts') || '')?.[id]
@@ -39,7 +39,7 @@ const EpisodeDetails = () => {
 						<h2>{episodeDetails?.['itunes:title']}</h2>
 						<h3>{episodeDetails?.['itunes:subtitle']}</h3>
 						<audio className="w-full" controls>
-							{/* <source src={episodeDetails?.enclosure?.url} type="audio/mpeg" /> */}
+							<source src={episodeDetails?.enclosure?.url} type="audio/mpeg" />
 						</audio>
 					</div>
 				</div>
